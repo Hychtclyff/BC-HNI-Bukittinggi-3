@@ -1,7 +1,30 @@
 import { Link } from "@tanstack/react-router";
-export function Navbar() {
+import { FloatingNav } from "../ui/floating-navbar";
+
+const NavbarMobile = () => {
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "About",
+      link: "/about",
+    },
+    {
+      name: "Contact",
+      link: "/contact",
+    },
+  ];
   return (
-    <nav className=" py-3 border-b-2    ">
+    <div className="relative  w-full lg:hidden">
+      <FloatingNav navItems={navItems} />
+    </div>
+  );
+};
+const NavbarPc = () => {
+  return (
+    <nav className=" py-3 border-b-2  hidden lg:flex  ">
       <div className="container mx-auto flex flex-wrap items-center justify-between ">
         {/* Logo Section */}
         <div className="flex items-center space-x-2 ms-5">
@@ -19,7 +42,7 @@ export function Navbar() {
             Product
           </Link>
           <Link
-            to="/"
+            to="/aboutUs"
             className="flex items-center space-x-2  px-5 py-2 rounded-full "
           >
             About Us
@@ -54,4 +77,14 @@ export function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+export const Navbar = () => {
+  
+  return (
+    <>
+      <NavbarPc />
+      <NavbarMobile />
+    </>
+  );
+};

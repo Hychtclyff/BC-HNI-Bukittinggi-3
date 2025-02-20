@@ -1,11 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 import animate from "tailwindcss-animate";
 
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+
 export default {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          from: { transform: "translate(0%)" },
+          to: { transform: "translate(calc(-50% - 0.5rem))" },
+        },
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -55,5 +67,15 @@ export default {
       },
     },
   },
-  plugins: [animate ],
+  plugins: [animate,
+    function addVariablesForColors({ addBase, theme }: any) {
+    let allColors = flattenColorPalette(theme("colors"));
+    let newVars = Object.fromEntries(
+      Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+    );
+   
+    addBase({
+      ":root": newVars,
+    });
+  }],
 };
