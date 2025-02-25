@@ -6,7 +6,7 @@ import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import Skeleton from "@/components/ui/skeleton";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
-import { Box, Lock, PlaneIcon, Search, Settings, Sparkles } from "lucide-react";
+import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
 import {
   Modal,
   ModalBody,
@@ -14,7 +14,6 @@ import {
   ModalFooter,
   ModalTrigger,
 } from "@/components/ui/animated-modal";
-import { motion } from "framer-motion";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Vortex } from "@/components/ui/vortex";
 export const Route = createLazyFileRoute("/")({
@@ -169,7 +168,6 @@ const Service = () => {
 };
 
 const Owners = () => {
- 
   return (
     <>
       <div className="flex flex-col gap-5">
@@ -208,7 +206,7 @@ const Owners = () => {
                   now! ✈️
                 </h4>
                 <div className="flex justify-center items-center">
-                 {/* content */}
+                  {/* content */}
                 </div>
               </ModalContent>
               <ModalFooter className="gap-4">
