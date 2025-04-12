@@ -1,9 +1,7 @@
 import React from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-// Import Carousel dari Apple Cards Carousel
 
-// Import Carousel dari UI utama
 import {
   Carousel,
   CarouselContent,

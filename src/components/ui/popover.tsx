@@ -8,8 +8,16 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverContent = React.forwardRef(
   (
-    { className, align = "center", sideOffset = 4, modal = false, ...props },
-    ref
+    {
+      className,
+      align = "center",
+      sideOffset = 4,
+      modal = false,
+      ...props
+    }: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
+      modal?: boolean;
+    },
+    ref: React.ForwardedRef<HTMLDivElement>
   ) => {
     const contents = (
       <PopoverPrimitive.Content
