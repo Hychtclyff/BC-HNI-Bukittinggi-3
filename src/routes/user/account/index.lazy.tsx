@@ -84,7 +84,7 @@ const AccountNavigation = () => {
         </ul>
       </CardContent>
       <CardFooter>
-        <p>Card Footer</p>
+        <p>Log Out</p>
       </CardFooter>
     </Card>
   );
