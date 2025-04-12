@@ -68,79 +68,11 @@ const HeaderMarket = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const handleSearchChange = (val) => {
+  const handleSearchChange = (val: string) => {
+    const trimmed = val.trim();
     setValueSearch(val);
-    setOpen(val.trim() !== "");
+    setOpen(trimmed.length > 0);
   };
-  return (
-    <>
-      <div className="header  relative flex justify-between flex-col flex-wrap gap-5   ">
-        <div className="path ">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <Slash />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-        <div className="searching lg:absolute right-0 ">
-          <Command className="right-0 rounded-lg border shadow-md md:min-w-[450px]">
-            <CommandInput
-              value={valueSearch}
-              placeholder="Type a command or search..."
-              onValueChange={handleSearchChange}
-            />
-            <CommandList className={`  ${open ? "block" : "hidden"} `}>
-              <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup heading="Suggestions">
-                <CommandItem>
-                  <Calendar />
-                  <span>Calendar</span>
-                </CommandItem>
-                <CommandItem>
-                  <Smile />
-                  <span>Search Emoji</span>
-                </CommandItem>
-                <CommandItem disabled>
-                  <Calculator />
-                  <span>Calculator</span>
-                </CommandItem>
-              </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup heading="Settings">
-                <CommandItem>
-                  <User />
-                  <span>Profile</span>
-                  <CommandShortcut>⌘P</CommandShortcut>
-                </CommandItem>
-                <CommandItem>
-                  <CreditCard />
-                  <span>Billing</span>
-                  <CommandShortcut>⌘B</CommandShortcut>
-                </CommandItem>
-                <CommandItem>
-                  <Settings />
-                  <span>Settings</span>
-                  <CommandShortcut>⌘S</CommandShortcut>
-                </CommandItem>
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </div>
-      </div>
-      <div className="body"></div>
-    </>
-  );
-};
-
-const ListProduct = () => {
   const [count, setCount] = useState(0);
 
   const cards = [
@@ -258,6 +190,203 @@ const ListProduct = () => {
   ];
   return (
     <>
+      <div className="header  flex-col md:flex-row  flex justify-between  flex-wrap gap-5  ">
+        <div className="path ">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <Slash />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
+        <div className="flex justify-end relative md:w-1/2 items-center ">
+          <div className="searching  h-10">
+            <Command className=" rounded-lg border  shadow-md md:min-w-[450px]  h-fit ">
+              <CommandInput
+                value={valueSearch}
+                placeholder="Type a command or search..."
+                onValueChange={handleSearchChange}
+              />
+              <CommandList className={`  ${open ? "block" : "hidden"} h-fit  `}>
+                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandGroup heading="Suggestions">
+                  <CommandItem>
+                    <Calendar />
+                    <span>Calendar</span>
+                  </CommandItem>
+                  <CommandItem>
+                    <Smile />
+                    <span>Search Emoji</span>
+                  </CommandItem>
+                  <CommandItem disabled>
+                    <Calculator />
+                    <span>Calculator</span>
+                  </CommandItem>
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Settings">
+                  <CommandItem>
+                    <User />
+                    <span>Profile</span>
+                    <CommandShortcut>⌘P</CommandShortcut>
+                  </CommandItem>
+                  <CommandItem>
+                    <CreditCard />
+                    <span>Billing</span>
+                    <CommandShortcut>⌘B</CommandShortcut>
+                  </CommandItem>
+                  <CommandItem>
+                    <Settings />
+                    <span>Settings</span>
+                    <CommandShortcut>⌘S</CommandShortcut>
+                  </CommandItem>
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </div>
+          <Modal>
+            <ModalTrigger className="col-span-1 lg:col-span-2   group/modal-btn">
+              <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="button"
+                className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
+              >
+                <span>Keranjang</span>
+              </HoverBorderGradient>
+            </ModalTrigger>
+            <ModalBody className="overflow-y-auto">
+              <ModalContent>
+                <h4 className="text-lg md:text-2xl  text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
+                  Keranjang
+                </h4>
+                <ScrollArea className="h-[25rem]  rounded-md border">
+                  {cards.map((card, id) => (
+                    <motion.div
+                      layoutId={`card-${card.title}-${id}`}
+                      key={`card-${card.title}-${id}`}
+                      // onClick={() => setActive(card)}
+                      className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                    >
+                      <div className="flex gap-4 flex-row ">
+                        <motion.div layoutId={`image-${card.title}-${id}`}>
+                          <img
+                            width={100}
+                            height={100}
+                            src={card.src}
+                            alt={card.title}
+                            className="h-7 w-auto md:h-14 md:w-14 rounded-lg object-cover object-top"
+                          />
+                        </motion.div>
+                        <div>
+                          <motion.h3
+                            layoutId={`title-${card.title}-${id}`}
+                            className="font-medium text-neutral-800 dark:text-neutral-200  text-left"
+                          >
+                            {card.title}
+                          </motion.h3>
+                          <motion.p
+                            layoutId={`description-${card.description}-${id}`}
+                            className="text-neutral-600 dark:text-neutral-400  text-left"
+                          >
+                            {card.description}
+                          </motion.p>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3 justify-center md:justify-end  ">
+                        <Button
+                          onClick={() => {
+                            count != 0 && setCount(count - 1);
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Input
+                          id="width"
+                          value={count}
+                          className="text-center w-1/5"
+                        />
+                        <Button onClick={() => setCount(count + 1)}>+</Button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </ScrollArea>
+                <hr />
+                <motion.div
+                  // onClick={() => setActive(card)}
+                  className="p-4 flex  flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                >
+                  <div className="flex flex-col gap-4   ">
+                    <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
+                      Total Quantity
+                    </motion.p>
+                    <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
+                      Total PV
+                    </motion.p>
+                    <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
+                      Diskon
+                    </motion.p>
+                    <motion.h3 className="text-neutral-600 font-medium dark:text-neutral-400 text-center md:text-left">
+                      Total harga
+                    </motion.h3>
+                  </div>
+
+                  <div className="flex flex-col w-1/4 gap-4  ">
+                    <motion.p className="font-medium text-neutral-800 dark:text-neutral-200 text-center ">
+                      10
+                    </motion.p>
+                    <motion.p className="font-medium text-neutral-800 dark:text-neutral-200 text-center ">
+                      10
+                    </motion.p>
+                    <Select>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select a fruit" />
+                      </SelectTrigger>
+                      <SelectContent modal={true}>
+                        <SelectGroup>
+                          <SelectLabel>Fruits</SelectLabel>
+                          <SelectItem value="apple">Apple</SelectItem>
+                          <SelectItem value="banana">Banana</SelectItem>
+                          <SelectItem value="blueberry">Blueberry</SelectItem>
+                          <SelectItem value="grapes">Grapes</SelectItem>
+                          <SelectItem value="pineapple">Pineapple</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <motion.h3 className="text-neutral-600 font-medium dark:text-neutral-400 text-center ">
+                      RP 1.000.000
+                    </motion.h3>
+                  </div>
+                </motion.div>
+              </ModalContent>
+              <ModalFooter className="gap-4">
+                <button className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
+                  Buat Pesanan
+                </button>
+                <button className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-32">
+                  Bayar Sekarang
+                </button>
+              </ModalFooter>
+            </ModalBody>
+          </Modal>
+        </div>
+      </div>
+      <div className="body"></div>
+    </>
+  );
+};
+
+const ListProduct = () => {
+  return (
+    <>
       <div className="categories pt-10 flex justify-between ">
         <div className="flex  justify-start  flex-wrap  text-center gap-2">
           <HoverBorderGradient
@@ -290,131 +419,6 @@ const ListProduct = () => {
             <span>Home Care</span>
           </HoverBorderGradient>
         </div>
-        <Modal>
-          <ModalTrigger className="col-span-1 lg:col-span-2 hidden md:block group/modal-btn">
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              as="button"
-              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
-            >
-              <span>Keranjang</span>
-            </HoverBorderGradient>
-          </ModalTrigger>
-          <ModalBody className="overflow-y-auto">
-            <ModalContent>
-              <h4 className="text-lg md:text-2xl  text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-                Keranjang
-              </h4>
-              <ScrollArea className="h-[25rem]  rounded-md border">
-                {cards.map((card, id) => (
-                  <motion.div
-                    layoutId={`card-${card.title}-${id}`}
-                    key={`card-${card.title}-${id}`}
-                    // onClick={() => setActive(card)}
-                    className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
-                  >
-                    <div className="flex gap-4 flex-row ">
-                      <motion.div layoutId={`image-${card.title}-${id}`}>
-                        <img
-                          width={100}
-                          height={100}
-                          src={card.src}
-                          alt={card.title}
-                          className="h-7 w-auto md:h-14 md:w-14 rounded-lg object-cover object-top"
-                        />
-                      </motion.div>
-                      <div>
-                        <motion.h3
-                          layoutId={`title-${card.title}-${id}`}
-                          className="font-medium text-neutral-800 dark:text-neutral-200  text-left"
-                        >
-                          {card.title}
-                        </motion.h3>
-                        <motion.p
-                          layoutId={`description-${card.description}-${id}`}
-                          className="text-neutral-600 dark:text-neutral-400  text-left"
-                        >
-                          {card.description}
-                        </motion.p>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3 justify-center md:justify-end  ">
-                      <Button
-                        onClick={() => {
-                          count != 0 && setCount(count - 1);
-                        }}
-                      >
-                        -
-                      </Button>
-                      <Input
-                        id="width"
-                        value={count}
-                        className="text-center w-1/5"
-                      />
-                      <Button onClick={() => setCount(count + 1)}>+</Button>
-                    </div>
-                  </motion.div>
-                ))}
-              </ScrollArea>
-              <hr />
-              <motion.div
-                // onClick={() => setActive(card)}
-                className="p-4 flex  flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
-              >
-                <div className="flex flex-col gap-4   ">
-                  <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
-                    Total Quantity
-                  </motion.p>
-                  <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
-                    Total PV
-                  </motion.p>
-                  <motion.p className=" text-neutral-800 dark:text-neutral-200 text-center md:text-left">
-                    Diskon
-                  </motion.p>
-                  <motion.h3 className="text-neutral-600 font-medium dark:text-neutral-400 text-center md:text-left">
-                    Total harga
-                  </motion.h3>
-                </div>
-
-                <div className="flex flex-col w-1/4 gap-4  ">
-                  <motion.p className="font-medium text-neutral-800 dark:text-neutral-200 text-center ">
-                    10
-                  </motion.p>
-                  <motion.p className="font-medium text-neutral-800 dark:text-neutral-200 text-center ">
-                    10
-                  </motion.p>
-                  <Select>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a fruit" />
-                    </SelectTrigger>
-                    <SelectContent modal={true}>
-                      <SelectGroup>
-                        <SelectLabel>Fruits</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  <motion.h3 className="text-neutral-600 font-medium dark:text-neutral-400 text-center ">
-                    RP 1.000.000
-                  </motion.h3>
-                </div>
-              </motion.div>
-            </ModalContent>
-            <ModalFooter className="gap-4">
-              <button className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
-                Buat Pesanan
-              </button>
-              <button className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-32">
-                Bayar Sekarang
-              </button>
-            </ModalFooter>
-          </ModalBody>
-        </Modal>
       </div>
       <div className="listProducts grid grid-col-1 md:grid-cols-3 xl:grid-cols-5 gap-7 p-5 h-screen overflow-auto my-10">
         {Array.from({ length: 25 }).map((_, index) => (
@@ -452,18 +456,11 @@ function CardProduct() {
     </div>
   );
 }
-const SideBar = () => {
-  // const [open, setOpen] = useState(false);
-  return <></>;
-};
 
 function RouteComponent() {
   return (
     <>
       <div className="relative container mx-auto px-5 lg:px-28 lg:py-10 pt-24">
-        <div className="-left-48 top-0 absolute z-50 h-full">
-          <SideBar />
-        </div>
         <HeaderMarket />
         <ListProduct />
       </div>
