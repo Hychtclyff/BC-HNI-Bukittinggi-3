@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 import animate from "tailwindcss-animate";
 
@@ -11,13 +12,22 @@ export default {
       animation: {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+          shimmer: "shimmer 2s linear infinite"
       },
       keyframes: {
         scroll: {
           from: { transform: "translate(0%)" },
           to: { transform: "translate(calc(-50% - 0.5rem))" },
-        },
+        },shimmer: {
+          from: {
+            "backgroundPosition": "0 0"
+          },
+          to: {
+            "backgroundPosition": "-200% 0"
+          }
+        }
       },
+     
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

@@ -3,12 +3,12 @@ import { FloatingNav } from "../ui/floating-navbar";
 
 const navItems = [
   { name: "Home", link: "/" },
-  { name: "About Us", link: "/about/aboutUs" },
-  { name: "Product", link: "/product" },
-  { name: "Service", link: "/service" },
-  { name: "Support", link: "/support" },
+  { name: "About ", link: "/about/aboutUs" },
+  { name: "Product", link: "/about/aboutProduct" },
   { name: "Find", link: "/find" },
   { name: "Shop", link: "/shop" },
+  { name: "Login", link: "/login" },
+  { name: "akun", link: "/user/account" },
 ];
 
 const NavbarMobile = () => (

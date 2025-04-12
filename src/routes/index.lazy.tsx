@@ -1,21 +1,19 @@
-import GridItem from "@/components/Card";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import GridItem from "@/components/GridItem";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { ParallaxScroll } from "@/components/ui/parallax-scroll";
 import Skeleton from "@/components/ui/skeleton";
-import { WobbleCard } from "@/components/ui/wobble-card";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "@/components/ui/animated-modal";
+
 import { Spotlight } from "@/components/ui/spotlight";
 import { Vortex } from "@/components/ui/vortex";
+import {
+  AccordionContent,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 export const Route = createLazyFileRoute("/")({
   component: LandingPage,
 });
@@ -26,30 +24,38 @@ const HeroSection = () => {
     <div className="bg-gray-100">
       <div className=" container mx-auto px-10 lg:px-28 flex relative">
         <div className="1/3 py-20 flex flex-col gap-5">
-          <h1 className="lg:w-1/2 text-justify font-semibold text-4xl">
+          <h1 className="lg:w-1/2 text- font-semibold text-7xl">
             <span className="text-green-300">Improving</span> Lives with the
             Power of <span className="text-green-300">Herbal</span> Medicine
           </h1>
-          <p className="lg:w-1/2">
+          <p className="lg:w-1/2 text-2xl">
             HNI is a herbal brand committed to improving lives through the power
             of herbal medicine, utilizing natural and effective ingredients.
           </p>
           <div className="actions flex gap-3">
-            <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <button className=" relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-6 py-1 text-xl font-medium text-white backdrop-blur-3xl">
                 Belanja Sekarang!
               </span>
             </button>
             <Link
-              to="/about/aboutUs"
+              to="/about/aboutProduct"
               className=" relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
             >
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white px-6 py-1 text-sm font-medium text-black backdrop-blur-3xl">
+              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white px-6 py-1  text-xl font-medium text-black backdrop-blur-3xl">
                 Tentang
               </span>
             </Link>
+          </div>
+          <div className="logo flex justify-start gap-3 items-center text-light text-gray-500">
+            <img
+              src="/img/logo-hni.png"
+              alt="logo-hni"
+              className="h-auto w-8 "
+            />
+            <span>Herbal Network International</span>
           </div>
         </div>
       </div>
@@ -167,153 +173,6 @@ const Service = () => {
   );
 };
 
-const Owners = () => {
-  return (
-    <>
-      <div className="flex flex-col gap-5">
-        <h1 className="text-center font-semibold text-3xl">Pemilik</h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 max-w-7xl mx-auto w-full">
-          <Modal>
-            <ModalTrigger className="col-span-1 lg:col-span-2 h-full min-h-[500px] lg:min-h-[300px] group/modal-btn">
-              <WobbleCard
-                containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
-                className=""
-              >
-                <div className="max-w-sm">
-                  <h2 className="text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-                    Novi Erni Linda Nofita
-                  </h2>
-                  <p className="mt-4 text-left  text-base/6 text-neutral-200">
-                    With over 100,000 mothly active bot users, Gippity AI is the
-                    most popular AI platform for developers.
-                  </p>
-                </div>
-                <img
-                  src="/img/novi.png"
-                  className="w-auto h-96 absolute -right-4 lg:-right-[0%] grayscale filter -bottom-28 object-contain rounded-2xl"
-                  alt=""
-                />
-              </WobbleCard>
-            </ModalTrigger>
-            <ModalBody>
-              <ModalContent>
-                <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-                  Book your trip to{" "}
-                  <span className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
-                    Bali
-                  </span>{" "}
-                  now! ✈️
-                </h4>
-                <div className="flex justify-center items-center">
-                  {/* content */}
-                </div>
-              </ModalContent>
-              <ModalFooter className="gap-4">
-                <button className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
-                  Cancel
-                </button>
-                <button className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-28">
-                  Book Now
-                </button>
-              </ModalFooter>
-            </ModalBody>
-          </Modal>
-
-          <Modal>
-            <ModalTrigger className="col-span-1 lg:col-span-2 h-full min-h-[500px] lg:min-h-[300px] group/modal-btn">
-              <WobbleCard containerClassName="bg-blue-900 col-span-1 lg:col-span-2 h-full min-h-[500px] lg:min-h-[300px] group/modal-btn">
-                <div className="max-w-sm">
-                  <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
-                    Erizal
-                  </h2>
-                  <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
-                    With over 100,000 mothly active bot users, Gippity AI is the
-                    most popular AI platform for developers.
-                  </p>
-                </div>
-              </WobbleCard>
-            </ModalTrigger>
-            <ModalBody>
-              <ModalContent>
-                <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-                  Book your trip to{" "}
-                  <span className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
-                    Bali
-                  </span>{" "}
-                  now! ✈️
-                </h4>
-                <div className="flex justify-center items-center">
-                  {/* conntent */}
-                </div>
-              </ModalContent>
-              <ModalFooter className="gap-4">
-                <button className="px-2 py-1 bg-gray-200 text-black dark:bg-black dark:border-black dark:text-white border border-gray-300 rounded-md text-sm w-28">
-                  Cancel
-                </button>
-                <button className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-28">
-                  Book Now
-                </button>
-              </ModalFooter>
-            </ModalBody>
-          </Modal>
-        </div>
-      </div>
-    </>
-  );
-};
-const OurTeam = () => {
-  const testimonials = [
-    {
-      quote:
-        "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-      name: "Sarah Chen",
-      designation: "Product Manager at TechFlow",
-      src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
-      name: "Michael Rodriguez",
-      designation: "CTO at InnovateSphere",
-      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-      name: "Emily Watson",
-      designation: "Operations Director at CloudScale",
-      src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-      name: "James Kim",
-      designation: "Engineering Lead at DataPro",
-      src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-      name: "Lisa Thompson",
-      designation: "VP of Technology at FutureNet",
-      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-  ];
-  return (
-    <>
-      <div className="flex flex-col gap-5">
-        <h1 className="text-center font-semibold text-3xl">Team Kami</h1>
-        <AnimatedTestimonials testimonials={testimonials}>
-          <a href="https://www.whatsapp.com/?lang=id_ID">
-            <img src="/svg/wa.svg" alt="" className="w-8 h-8" />
-          </a>
-        </AnimatedTestimonials>
-      </div>
-    </>
-  );
-};
-
 const Products = () => {
   return (
     <>
@@ -345,60 +204,6 @@ const Products = () => {
         </BentoGrid>
       </div>
     </>
-  );
-};
-
-const Footer = () => {
-  return (
-    <div className="bg-gray-100">
-      <div className="container mx-auto px-10 lg:px-28 py-10  flex flex-col lg:grid grid-cols-4 gap-5 ">
-        <div className=" flex flex-col ">
-          <span>
-            Jalan Kusuma Bhakti no 13 Kelurahan Kubu Gulai Bancah, Kota
-            Bukittinggi, Sumatra Barat
-          </span>
-          <p>bcbkt3@gmail.com</p>
-          <span>08123456789</span>
-        </div>
-        <div className="navigation">
-          <ul className="font-bold flex lg:flex-col gap-5">
-            <li>
-              <a href="#">Services</a>
-            </li>
-            <li>
-              <a href="#">Owners</a>
-            </li>
-            <li>
-              <a href="#">Products</a>
-            </li>
-          </ul>
-        </div>
-        <div className="contact">
-          <span>Contact Us</span>
-          <ul className="flex gap-2 ">
-            <li className="bg-green-200 p-1 rounded-full hover:bg-green-400 transition">
-              <img src="/svg/wa.svg" className="w-8 h-auto" alt="wa-icon" />
-            </li>
-            <li className="bg-green-200 p-1 rounded-full hover:bg-green-400 transition">
-              <img src="/svg/ig.svg" className="w-8 h-auto" alt="ig-icon" />
-            </li>
-            <li className="bg-green-200 p-1 rounded-full hover:bg-green-400 transition">
-              <img src="/svg/fb.svg" className="w-8 h-auto" alt="fb-icon" />
-            </li>
-            <li className="bg-green-200 p-1 rounded-full hover:bg-green-400 transition">
-              <img src="/svg/tt.svg" className="w-8 h-auto" alt="tt-icon" />
-            </li>
-          </ul>
-        </div>
-        <div className="logo flex flex-col">
-          <span>
-            © 2020 BC HNI Bukittinggi 3. All Right Reserved. Design by Quls
-            Projects
-          </span>
-          <div className="logo w-20 h-5 bg-green-400"></div>
-        </div>
-      </div>
-    </div>
   );
 };
 
@@ -580,22 +385,110 @@ const Agenda = () => {
   );
 };
 
+const Benefits = () => {
+  return (
+    <>
+      <div className="flex flex-col gap-5 justify-between  ">
+        <h1 className="text-center font-semibold text-3xl">Manfaat</h1>
+        <div className="list-benefit flex  gap-3   justify-center items  flex-col md:flex-row">
+          <img src="/img/benefit-logo-2.png" alt="" className="w-96 h-auto" />
+          <ul className=" flex flex-col gap-1">
+            <li className="flex gap-3 px-3 py-2 border border-gray-300 rounded-md ">
+              <img src="/svg/herbs.svg" alt="" className="h-auto w-8" />
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur, quasi.
+              </span>
+            </li>
+            <li className="flex gap-3 px-3 py-2 border border-gray-300 rounded-md ">
+              <img src="/svg/herbs.svg" alt="" className="h-auto w-8" />
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur, quasi.
+              </span>
+            </li>
+            <li className="flex gap-3 px-3 py-2 border border-gray-300 rounded-md ">
+              <img src="/svg/herbs.svg" alt="" className="h-auto w-8" />
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur, quasi.
+              </span>
+            </li>
+            <li className="flex gap-3 px-3 py-2 border border-gray-300 rounded-md ">
+              <img src="/svg/herbs.svg" alt="" className="h-auto w-8" />
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur, quasi.
+              </span>
+            </li>
+            <li className="flex gap-3 px-3 py-2 border border-gray-300 rounded-md ">
+              <img src="/svg/herbs.svg" alt="" className="h-auto w-8" />
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur, quasi.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Faq = () => {
+  return (
+    <>
+      <div className="flex  gap-5  justify-center flex-col md:flex-row">
+        <h1 className="text-center font-semibold text-3xl">
+          Frequently Asked Question
+        </h1>
+        <div className="list-question md:w-1/2">
+          <Accordion type="single" collapsible className="w-full ">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>Is it styled?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It comes with default styles that matches the other
+                components&apos; aesthetic.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Is it animated?</AccordionTrigger>
+              <AccordionContent>
+                Yes. It's animated by default, but you can disable it if you
+                prefer.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </div>
+    </>
+  );
+};
+
 function LandingPage() {
   return (
     <>
       <HeroSection />
       <div className="container mx-auto px-10 lg:px-28 py-5 flex flex-col gap-10">
+        <Benefits />
         <Service />
         <ProductAdds />
-        <Owners />
+        {/* <Owners /> */}
         <Products />
-        <OurTeam />
-        <BusinessAdds />
+        {/* <OurTeam /> */}
+        {/* <BusinessAdds /> */}
         <Achievements />
         <Gallery />
         <Agenda />
+        <Faq />
       </div>
-      <Footer />
+      {/* <Footer /> */}
       {/* 
       <Service />
       <Support /> */}

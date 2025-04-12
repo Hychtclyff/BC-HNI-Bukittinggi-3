@@ -17,6 +17,8 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
+const ShopIndexLazyImport = createFileRoute('/shop/')()
+const UserAccountIndexLazyImport = createFileRoute('/user/account/')()
 const AboutAboutUsIndexLazyImport = createFileRoute('/about/aboutUs/')()
 const AboutAboutProductIndexLazyImport = createFileRoute(
   '/about/aboutProduct/',
@@ -29,6 +31,20 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ShopIndexLazyRoute = ShopIndexLazyImport.update({
+  id: '/shop/',
+  path: '/shop/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/shop/index.lazy').then((d) => d.Route))
+
+const UserAccountIndexLazyRoute = UserAccountIndexLazyImport.update({
+  id: '/user/account/',
+  path: '/user/account/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/user/account/index.lazy').then((d) => d.Route),
+)
 
 const AboutAboutUsIndexLazyRoute = AboutAboutUsIndexLazyImport.update({
   id: '/about/aboutUs/',
@@ -59,6 +75,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/shop/': {
+      id: '/shop/'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/about/aboutProduct/': {
       id: '/about/aboutProduct/'
       path: '/about/aboutProduct'
@@ -73,6 +96,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutAboutUsIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/user/account/': {
+      id: '/user/account/'
+      path: '/user/account'
+      fullPath: '/user/account'
+      preLoaderRoute: typeof UserAccountIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -80,42 +110,63 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/shop': typeof ShopIndexLazyRoute
   '/about/aboutProduct': typeof AboutAboutProductIndexLazyRoute
   '/about/aboutUs': typeof AboutAboutUsIndexLazyRoute
+  '/user/account': typeof UserAccountIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/shop': typeof ShopIndexLazyRoute
   '/about/aboutProduct': typeof AboutAboutProductIndexLazyRoute
   '/about/aboutUs': typeof AboutAboutUsIndexLazyRoute
+  '/user/account': typeof UserAccountIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/shop/': typeof ShopIndexLazyRoute
   '/about/aboutProduct/': typeof AboutAboutProductIndexLazyRoute
   '/about/aboutUs/': typeof AboutAboutUsIndexLazyRoute
+  '/user/account/': typeof UserAccountIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about/aboutProduct' | '/about/aboutUs'
+  fullPaths:
+    | '/'
+    | '/shop'
+    | '/about/aboutProduct'
+    | '/about/aboutUs'
+    | '/user/account'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about/aboutProduct' | '/about/aboutUs'
-  id: '__root__' | '/' | '/about/aboutProduct/' | '/about/aboutUs/'
+  to: '/' | '/shop' | '/about/aboutProduct' | '/about/aboutUs' | '/user/account'
+  id:
+    | '__root__'
+    | '/'
+    | '/shop/'
+    | '/about/aboutProduct/'
+    | '/about/aboutUs/'
+    | '/user/account/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  ShopIndexLazyRoute: typeof ShopIndexLazyRoute
   AboutAboutProductIndexLazyRoute: typeof AboutAboutProductIndexLazyRoute
   AboutAboutUsIndexLazyRoute: typeof AboutAboutUsIndexLazyRoute
+  UserAccountIndexLazyRoute: typeof UserAccountIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  ShopIndexLazyRoute: ShopIndexLazyRoute,
   AboutAboutProductIndexLazyRoute: AboutAboutProductIndexLazyRoute,
   AboutAboutUsIndexLazyRoute: AboutAboutUsIndexLazyRoute,
+  UserAccountIndexLazyRoute: UserAccountIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -129,18 +180,26 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/shop/",
         "/about/aboutProduct/",
-        "/about/aboutUs/"
+        "/about/aboutUs/",
+        "/user/account/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/shop/": {
+      "filePath": "shop/index.lazy.tsx"
     },
     "/about/aboutProduct/": {
       "filePath": "about/aboutProduct/index.lazy.tsx"
     },
     "/about/aboutUs/": {
       "filePath": "about/aboutUs/index.lazy.tsx"
+    },
+    "/user/account/": {
+      "filePath": "user/account/index.lazy.tsx"
     }
   }
 }
