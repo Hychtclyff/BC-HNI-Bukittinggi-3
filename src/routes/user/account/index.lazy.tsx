@@ -762,9 +762,6 @@ const DisplayVoucher = () => {
                     className={`w-4 h-4 ${
                       voucher.isUsed ? "text-gray-400" : "text-green-500"
                     }`}
-                    title={
-                      voucher.isUsed ? "Sudah digunakan" : "Belum digunakan"
-                    }
                   />
                 </div>
               </div>
