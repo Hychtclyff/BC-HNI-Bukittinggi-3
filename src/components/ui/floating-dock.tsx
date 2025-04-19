@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-
+import { Button as BtnMoving } from "./moving-border";
 import { useRef, useState } from "react";
 import { TabsList, TabsTrigger } from "./tabs";
 
@@ -102,12 +102,15 @@ const FloatingDockMobile = ({
             </motion.div>
           )}
         </AnimatePresence>
-        <button
+
+        <BtnMoving
+          containerClassName="h-10 w-10"
+          borderRadius="1.75rem"
+          className="bg-white  dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
           onClick={() => setOpen(!open)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
         >
           <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-        </button>
+        </BtnMoving>
       </div>
     </TabsList>
   );
