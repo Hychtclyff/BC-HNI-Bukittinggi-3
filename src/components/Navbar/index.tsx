@@ -5,9 +5,8 @@ const navItems = [
   { name: "Home", link: "/" },
   { name: "About ", link: "/about/aboutUs" },
   { name: "Product", link: "/about/aboutProduct" },
-  { name: "Find", link: "/find" },
   { name: "Shop", link: "/shop" },
-  { name: "Login", link: "/login" },
+  // { name: "Login", link: "/login" },
   { name: "akun", link: "/user/account" },
 ];
 

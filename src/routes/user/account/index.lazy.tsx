@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FloatingDock } from "@/components/ui/floating-dock";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "motion/react";
 import {
@@ -38,11 +39,56 @@ export const Route = createLazyFileRoute("/user/account/")({
 });
 
 function RouteComponent() {
+  const links = [
+    {
+      title: "Edit Profile",
+      value: "editProfile",
+      icon: (
+        <img src="/svg/avatar.svg" alt="Edit Profile" className="w-auto h-6" />
+      ),
+    },
+    {
+      title: "Pesanan Saya",
+      value: "orders",
+      icon: (
+        <img src="/svg/basket.svg" alt="Pesanan Saya" className="w-auto h-8" />
+      ),
+    },
+    {
+      title: "Notifikasi",
+      value: "notifications",
+      icon: (
+        <img
+          src="/svg/notification.svg"
+          alt="Notifikasi"
+          className="w-auto h-8"
+        />
+      ),
+    },
+    {
+      title: "Voucher",
+      value: "voucher",
+      icon: (
+        <img src="/svg/disccount.svg" alt="Voucher" className="w-auto h-8" />
+      ),
+    },
+    {
+      title: "Pinjaman",
+      value: "loan",
+      icon: <img src="/svg/money.svg" alt="Pinjaman" className="w-auto h-8" />,
+    },
+  ];
   return (
-    <div className="container mx-auto px-28 h-[70vh] py-10">
-      <Tabs defaultValue="editProfile" className="w-full  flex gap-3">
-        <div className="navigation w-1/5">
+    <div className="container mt-12 mx-auto px-5 md:px-28 md:h-[70vh] py-10">
+      <Tabs defaultValue="editProfile" className="w-full relative  flex gap-3">
+        <div className="navigation hidden md:block w-1/5">
           <AccountNavigation />
+        </div>
+        <div className="flex md:hidden fixed -bottom-32 left-32 items-center justify-center h-[35rem] w-full z-50">
+          <FloatingDock
+            mobileClassName="translate-y-20 " // only for demo, remove for production
+            items={links}
+          />
         </div>
         <div className="display w-full h-[37rem] ">
           <Display>
@@ -72,6 +118,50 @@ function RouteComponent() {
 }
 
 const AccountNavigation = () => {
+  const links = [
+    {
+      title: "Edit Profile",
+      value: "editProfile",
+      icon: (
+        <img src="/svg/avatar.svg" alt="Edit Profile" className="w-auto h-6" />
+      ),
+      href: "",
+    },
+    {
+      title: "Pesanan Saya",
+      value: "orders",
+      icon: (
+        <img src="/svg/basket.svg" alt="Pesanan Saya" className="w-auto h-8" />
+      ),
+      href: "",
+    },
+    {
+      title: "Notifikasi",
+      value: "notifications",
+      icon: (
+        <img
+          src="/svg/notification.svg"
+          alt="Notifikasi"
+          className="w-auto h-8"
+        />
+      ),
+      href: "",
+    },
+    {
+      title: "Voucher",
+      value: "voucher",
+      icon: (
+        <img src="/svg/disccount.svg" alt="Voucher" className="w-auto h-8" />
+      ),
+      href: "",
+    },
+    {
+      title: "Pinjaman",
+      value: "loan",
+      icon: <img src="/svg/money.svg" alt="Pinjaman" className="w-auto h-8" />,
+      href: "",
+    },
+  ];
   return (
     <Card>
       <CardHeader>
@@ -86,45 +176,16 @@ const AccountNavigation = () => {
       </CardHeader>
       <CardContent>
         <TabsList className="flex flex-col gap-2 justify-start items-start h-auto bg-transparent">
-          <TabsTrigger
-            value="editProfile"
-            className="flex gap-2 items-start justify-start w-full"
-          >
-            <img src="/svg/avatar.svg" alt="" className="w-auto h-6" />
-            <span>Edit Profile</span>
-          </TabsTrigger>
-
-          <TabsTrigger
-            value="orders"
-            className="flex gap-2 items-start justify-start w-full"
-          >
-            <img src="/svg/basket.svg" alt="" className="w-auto h-8" />
-            <span>Pesanan Saya</span>
-          </TabsTrigger>
-
-          <TabsTrigger
-            value="notifications"
-            className="flex gap-2 items-start justify-start w-full"
-          >
-            <img src="/svg/notification.svg" alt="" className="w-auto h-8" />
-            <span>Notifikasi</span>
-          </TabsTrigger>
-
-          <TabsTrigger
-            value="voucher"
-            className="flex gap-2 items-start justify-start w-full"
-          >
-            <img src="/svg/disccount.svg" alt="" className="w-auto h-8" />
-            <span>Voucher</span>
-          </TabsTrigger>
-
-          <TabsTrigger
-            value="loan"
-            className="flex gap-2 items-start justify-start w-full"
-          >
-            <img src="/svg/money.svg" alt="" className="w-auto h-8" />
-            <span>Pinjaman</span>
-          </TabsTrigger>
+          {links.map((link) => (
+            <TabsTrigger
+              key={link.value}
+              value={link.value}
+              className="flex gap-2 items-center justify-start w-full"
+            >
+              {link.icon}
+              <span>{link.title}</span>
+            </TabsTrigger>
+          ))}
         </TabsList>
       </CardContent>
       <CardFooter className="border-t pt-4 mt-4 flex justify-end">
@@ -145,8 +206,6 @@ const Display = ({ children }: { children: ReactNode }) => {
 };
 
 const DisplayBooking = () => {
-  const [count, setCount] = useState(0);
-
   const invoices = [
     {
       invoice: "INV001",
@@ -315,7 +374,7 @@ const DisplayBooking = () => {
               <CommandInput placeholder="Type a command or search..." />
             </Command>
           </CardDescription>
-          <div className="categoriesBooking ">
+          <div className="categoriesBooking overflow-auto ">
             <TabsList className="w-full justify-around gap-1">
               <TabsTrigger value="all" className="w-full bg-white">
                 Semua
@@ -339,7 +398,7 @@ const DisplayBooking = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <TabsContent value="all" className="overflow-y-auto   h-[24rem]">
+          <TabsContent value="all" className="overflow-y-auto  h-[24rem]">
             {cards.map((card, id) => (
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
